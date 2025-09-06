@@ -31,14 +31,14 @@ class Config(BaseSettings):
     DB_NAME: str
 
     @computed_field
-    def DATABASE_URI(self) -> MultiHostUrl:
-        return MultiHostUrl.build(
+    def DATABASE_URI(self) -> str:
+        return str(MultiHostUrl.build(
             scheme="postgresql+asyncpg",
             host=self.DB_HOST,
             port=self.DB_PORT,
             username=self.DB_USERNAME,
             password=self.DB_PASSWORD,
             path=self.DB_NAME
-        )
+        ))
 
 config = Config()

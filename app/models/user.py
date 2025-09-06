@@ -8,10 +8,10 @@ class UserRole(str, Enum):
 class UserBase(SQLModel):
     email: str = Field(primary_key=True)
     name: str
-    role: UserRole = Field(default=UserRole.USER, nullable=False)
 
 class User(UserBase, table=True):
     __tablename__ = "user"
+    role: str = Field(default=UserRole.USER)
     password: str
 
 class CreateUser(UserBase):
@@ -19,6 +19,10 @@ class CreateUser(UserBase):
 
 class GetUser(UserBase):
     pass
+
+class UserLogin(SQLModel):
+    email: str
+    password: str
 
 class UserToken(SQLModel):
     access_token: str

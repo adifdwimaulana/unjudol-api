@@ -4,8 +4,9 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from logging import getLogger
 
-from core.logging import init_logging
-from routes import auth
+from app.core.logging import init_logging
+from app.routes import auth
+from app.core.middleware import JWTMiddleware
 
 # Initialization
 init_logging()
@@ -22,7 +23,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-app.include_router(auth.router)
+
+# Routes
+app.include_router(auth.router, prefix="/api")
+
+# Middlewares
+app.add_middleware(JWTMiddleware)
+
 
 @app.get("/health")
 def health_check():
