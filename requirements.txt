@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+sqlmodel
+asyncio
+alembic
+psycopg2
+asyncpg
+pyjwt
+bcrypt
+pydantic-settings
