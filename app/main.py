@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from logging import getLogger
 
 from app.core.logging import init_logging
-from app.routes import auth
+from app.routes import auth, comment
 from app.core.middleware import JWTMiddleware
 
 # Initialization
@@ -26,6 +26,7 @@ app = FastAPI(lifespan=lifespan)
 
 # Routes
 app.include_router(auth.router, prefix="/api")
+app.include_router(comment.router, prefix="/api")
 
 # Middlewares
 app.add_middleware(JWTMiddleware)

@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, status, HTTPException
 
-from app.models.message import MessageResponse
+from app.models.common import MessageResponse
 from app.models.user import CreateUser, UserToken, UserLogin
 from app.services.auth import AuthService, create_access_token
 from app.services.user import UserService
