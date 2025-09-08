@@ -62,3 +62,4 @@ class GetJob(JobBase):
 
 class StartJob(SQLModel):
     url: str
+    max_comment: int = 100

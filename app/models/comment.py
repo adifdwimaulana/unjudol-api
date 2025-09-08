@@ -3,7 +3,7 @@ import uuid
 from typing import Optional
 from enum import Enum
 from datetime import datetime
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Column, Enum as SAEnum
 
 from app.models.common import BasePagination
 
@@ -16,7 +16,14 @@ class CommentLabel(str, Enum):
 class CommentBase(SQLModel):
     job_id: uuid.UUID
     url: str = Field(index=True, nullable=False)
-    label: CommentLabel = Field(default=CommentLabel.NO_LABEL, index=True, nullable=False)
+    label: CommentLabel = Field(
+        sa_column=Column(
+            SAEnum(CommentLabel, name="label", native_enum=False),
+            default=CommentLabel.NO_LABEL,
+            index=True,
+            nullable=False
+        )
+    )
     content: str
 
 class Comment(CommentBase, table=True):
