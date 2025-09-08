@@ -66,16 +66,20 @@ def upgrade() -> None:
     # Create indexes
     op.create_index('ix_job_action', 'job', ['action'])
     op.create_index('ix_job_type', 'job', ['type'])
+    op.create_index('ix_job_status', 'job', ['status'])
     op.create_index('ix_comment_url', 'comment', ['url'])
     op.create_index('ix_comment_label', 'comment', ['label'])
+    op.create_index('ix_comment_job_id', 'comment', ['job_id'])
 
 
 def downgrade() -> None:
     # Drop indexes
     op.drop_index('ix_job_action')
     op.drop_index('ix_job_type')
+    op.drop_index('ix_job_status')
     op.drop_index('ix_comment_url')
     op.drop_index('ix_comment_label')
+    op.drop_index('ix_comment_job_id')
 
     # Drop tables
     op.drop_table('user')

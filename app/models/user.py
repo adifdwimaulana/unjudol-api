@@ -1,5 +1,6 @@
 from enum import Enum
-from sqlmodel import SQLModel, Field
+
+from sqlmodel import SQLModel, Field, Enum as SAEnum, Column
 
 class UserRole(str, Enum):
     USER = "USER"
@@ -11,7 +12,14 @@ class UserBase(SQLModel):
 
 class User(UserBase, table=True):
     __tablename__ = "user"
-    role: str = Field(default=UserRole.USER)
+    role: UserRole = Field(
+        sa_column=Column(
+            SAEnum(UserRole, name="user_role", native_enum=False),
+            default=UserRole.USER,
+            index=True,
+            nullable=False
+        )
+    )
     password: str
 
 class CreateUser(UserBase):
