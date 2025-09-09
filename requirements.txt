@@ -4,8 +4,8 @@ sqlalchemy
 sqlmodel
 asyncio
 alembic
-psycopg2
 asyncpg
+psycopg2-binary
 pyjwt
 bcrypt
 pydantic-settings

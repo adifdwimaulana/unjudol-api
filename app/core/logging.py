@@ -22,7 +22,7 @@ LOGGING_CONFIG = {
         "console": {
             "class": "logging.StreamHandler",
             "formatter": "default",
-            "level": "INFO",
+            "level": "DEBUG",
         },
         "file": {
             "class": "logging.FileHandler",
@@ -33,9 +33,14 @@ LOGGING_CONFIG = {
     },
     "root": {
         "handlers": ["console", "file"],
-        "level": "DEBUG",
+        "level": "WARNING",
     },
     "loggers": {
+        "app": {
+            "level": "INFO",
+            "handlers": ["console", "file"],
+            "propagate": False,
+        },
         "uvicorn.error": {
             "level": "INFO",
         },

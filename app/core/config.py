@@ -24,21 +24,21 @@ class Config(BaseSettings):
 
         return f"https://{self.HOST}"
 
-    DB_USERNAME: str
-    DB_PASSWORD: str
-    DB_HOST: str
-    DB_PORT: int
-    DB_NAME: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: int
+    POSTGRES_DB: str
 
     @computed_field
     def DATABASE_URI(self) -> str:
         return str(MultiHostUrl.build(
             scheme="postgresql+asyncpg",
-            host=self.DB_HOST,
-            port=self.DB_PORT,
-            username=self.DB_USERNAME,
-            password=self.DB_PASSWORD,
-            path=self.DB_NAME
+            host=self.POSTGRES_HOST,
+            port=self.POSTGRES_PORT,
+            username=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            path=self.POSTGRES_DB
         ))
 
 config = Config()

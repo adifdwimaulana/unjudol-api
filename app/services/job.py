@@ -17,7 +17,8 @@ logger = getLogger(__name__)
 
 async def scrape_comment_from_video(url: str, max_comment: int):
     async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=False)
+        logger.info("starting job for video %s", url)
+        browser = await pw.chromium.launch(headless=True)
         try:
             page = await browser.new_page()
 
@@ -25,9 +26,8 @@ async def scrape_comment_from_video(url: str, max_comment: int):
             await scroll_to_comments(page)
             results = await infinite_scroll(page, max_comment=max_comment)
             return results
-        except Exception:
-            raise Exception
         finally:
+            logger.info("job finish for video %s", url)
             await browser.close()
 
 
@@ -62,6 +62,7 @@ class JobService:
             await self.s.refresh(job)
             return
         except Exception as e:
+            logger.exception("Error while scraping job %s", job.id)
             await self.s.rollback()
 
             job.status = JobStatus.FAILED

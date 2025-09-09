@@ -1,3 +1,4 @@
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -25,6 +26,9 @@ target_metadata = None
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+# Note: To run alembic upgrade in local, need to export DB_MIGRATION_URL=DB_MIGRATION_URL_VALUE
+db_url = os.getenv("DB_MIGRATION_URL")
+config.set_main_option("sqlalchemy.url", db_url)
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
