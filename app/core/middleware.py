@@ -4,7 +4,7 @@ from starlette.responses import JSONResponse
 
 from app.services.auth import verify_token
 
-EXCLUDED_PATH = ["/api/auth", "/api/public"]
+EXCLUDED_PATH = ["/api/auth", "/api/public", "/health"]
 
 
 class JWTMiddleware(BaseHTTPMiddleware):
