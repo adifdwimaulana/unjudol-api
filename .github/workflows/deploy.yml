@@ -8,6 +8,13 @@ on:
 env:
   IMAGE_NAME: unjudol-app
   REGISTRY: ghcr.io
+  POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+  POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+  POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+  DB_MIGRATION_URL: postgresql+psycopg2://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
+  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
 jobs:
   build-and-deploy:
