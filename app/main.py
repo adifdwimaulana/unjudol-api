@@ -26,7 +26,7 @@ app = FastAPI(lifespan=lifespan)
 
 # Routes
 app.include_router(auth.router, prefix="/api")
-app.include_router(comment.router, prefix="/api")
+app.include_router(comment.router, prefix="/api/public")
 app.include_router(job.router, prefix="/api/public")
 
 # Middlewares

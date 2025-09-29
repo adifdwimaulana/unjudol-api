@@ -4,6 +4,7 @@ from typing import Optional
 from enum import Enum
 from datetime import datetime
 from sqlmodel import SQLModel, Field, Column, Enum as SAEnum
+from pydantic import BaseModel
 
 from app.models.common import BasePagination
 
@@ -45,3 +46,10 @@ class GetCommentQuery(BasePagination):
     job_id: Optional[uuid.UUID] = None
     url: Optional[str] = None
     label: Optional[str] = None
+
+class CommentRequest(BaseModel):
+    id: int
+    text: str
+
+class CheckComment(BaseModel):
+    comments: list[CommentRequest]

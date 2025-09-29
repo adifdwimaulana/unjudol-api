@@ -16,6 +16,7 @@ class Config(BaseSettings):
     HOST: str = "localhost"
     ENVIRONMENT: Literal["local", "production"] = "local"
     JWT_SECRET_KEY: str
+    OPENAI_API_KEY: str
 
     @computed_field
     def SERVER_HOST(self) -> str:

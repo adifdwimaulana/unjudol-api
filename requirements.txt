@@ -10,3 +10,4 @@ pyjwt
 bcrypt
 pydantic-settings
 playwright
+openai
