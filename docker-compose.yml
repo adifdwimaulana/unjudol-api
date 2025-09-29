@@ -58,15 +58,35 @@ services:
       - app_net
 
   unjudol-nginx:
-    image: nginx:latest
+    image: nginx:stable
     container_name: unjudol-nginx
+    restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/letsencrypt
+      - ./nginx/certs-data:/var/lib/letsencrypt
+      - ./nginx/www:/var/www/certbot
     depends_on:
       unjudol-app:
         condition: service_healthy
+    networks:
+      - app_net
+
+  unjudol-certbot:
+    image: certbot/certbot:latest
+    container_name: unjudol-certbot
+    volumes:
+      - ./nginx/certs:/etc/letsencrypt
+      - ./nginx/certs-data:/var/lib/letsencrypt
+      - ./nginx/www:/var/www/certbot
+    entrypoint: >
+      sh -c "trap exit TERM; while :; do
+      certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook 'nginx -s reload';
+      sleep 12h & wait $${!};
+      done"
     networks:
       - app_net
 
