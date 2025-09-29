@@ -65,7 +65,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/certs:/etc/letsencrypt
       - ./nginx/certs-data:/var/lib/letsencrypt
       - ./nginx/www:/var/www/certbot
